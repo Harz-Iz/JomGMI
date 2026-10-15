@@ -163,7 +163,8 @@
                                 android:hint="Credits / Passes (e.g. 5)"
                                 android:inputType="number"
                                 android:maxLength="2"
-                                android:text="5"
+                                android:text="3"
+                                android:textColor="@color/text_primary"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -179,7 +180,10 @@
                             android:insetBottom="0dp"
                             android:padding="0dp"
                             android:text="-"
+                            android:textColor="@color/primary"
+                            android:textStyle="bold"
                             android:textSize="18sp"
+                            app:backgroundTint="@color/primary_container"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -192,7 +196,10 @@
                             android:insetBottom="0dp"
                             android:padding="0dp"
                             android:text="+"
+                            android:textColor="@color/primary"
+                            android:textStyle="bold"
                             android:textSize="18sp"
+                            app:backgroundTint="@color/primary_container"
                             app:cornerRadius="10dp" />
 
                     </LinearLayout>
@@ -226,7 +233,7 @@
                             android:id="@+id/cbScience"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:checked="true"
+                            android:checked="false"
                             android:text="@string/cb_science"
                             android:textColor="@color/text_primary"
                             android:textSize="13sp" />

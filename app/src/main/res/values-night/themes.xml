@@ -1,17 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme for night mode. -->
-    <style name="Base.Theme.JomGMI" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primary_light</item>
+    <!-- Force Light Theme so text on white cards is always dark and readable -->
+    <style name="Base.Theme.JomGMI" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Brand Colors -->
+        <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorPrimaryContainer">@color/primary_dark</item>
-        <item name="colorOnPrimaryContainer">@color/primary_container</item>
+        <item name="colorPrimaryContainer">@color/primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary_container</item>
 
         <item name="colorSecondary">@color/accent</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="colorSecondaryContainer">@color/accent_dark</item>
-        <item name="colorOnSecondaryContainer">@color/accent_light</item>
+        <item name="colorSecondaryContainer">@color/accent_container</item>
+        <item name="colorOnSecondaryContainer">@color/on_accent_container</item>
 
-        <item name="android:statusBarColor">@color/primary_dark</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+
+        <!-- Status bar styling -->
+        <item name="android:statusBarColor">@color/primary</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
+
+    <style name="Theme.JomGMI" parent="Base.Theme.JomGMI" />
 </resources>

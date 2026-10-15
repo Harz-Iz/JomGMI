@@ -92,14 +92,14 @@ public class AboutContactActivity extends AppCompatActivity {
         // Get Directions button & Address row -> Intent ACTION_VIEW geo URI
         View.OnClickListener mapAction = v -> {
             try {
-                Uri mapUri = Uri.parse("geo:3.0775,101.5190?q=German-Malaysian+Institute+Shah+Alam");
+                Uri mapUri = Uri.parse("geo:2.9348,101.7946?q=German-Malaysian+Institute,+Jalan+Ilmiah,+Taman+Universiti,+43000+Kajang,+Selangor");
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapUri);
                 startActivity(mapIntent);
             } catch (Exception e) {
                 // Fallback to web maps URL
                 try {
                     Intent webMap = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://maps.google.com/?q=German-Malaysian+Institute+Shah+Alam"));
+                            Uri.parse("https://maps.google.com/?q=German-Malaysian+Institute,+Jalan+Ilmiah,+Taman+Universiti,+43000+Kajang,+Selangor"));
                     startActivity(webMap);
                 } catch (Exception ex) {
                     Toast.makeText(this, "Could not open map: " + ex.getMessage(), Toast.LENGTH_SHORT).show();

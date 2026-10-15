@@ -14,17 +14,20 @@ public class EligibilityEngine {
             return eligible;
         }
 
+        // If user has 0 credits/passes, no programmes should match
+        if (profile.getTotalCredits() <= 0) {
+            return eligible;
+        }
+
         String qual = profile.getQualificationType();
         if (qual == null) qual = "SPM";
 
-        // Normalize qualification string
         String qUpper = qual.toUpperCase();
 
         if (qUpper.contains("SPM")) {
             for (Course course : allCourses) {
+                // FIX: Do NOT show Degree (BELT) for SPM holders
                 if ("DEGREE".equalsIgnoreCase(course.getDepartment()) || course.isAdvancedEntry()) {
-                    // DEGREE (BELT): always show as advanced entry check
-                    eligible.add(course);
                     continue;
                 }
 
@@ -81,7 +84,6 @@ public class EligibilityEngine {
                         eligible.add(course);
                     }
                 } else {
-                    // O-Level: similar logic but no BM pass requirement; min 3 credits
                     if (profile.getTotalCredits() >= 3
                             && (!course.isRequiresMathsCredit() || profile.isHasMathsCredit())
                             && (!course.isRequiresScienceCredit() || profile.isHasScienceCredit())
@@ -91,23 +93,28 @@ public class EligibilityEngine {
                 }
             }
         } else if (qUpper.contains("SVM") || qUpper.contains("SKM")) {
-            // SVM or SKM: show all diploma programmes with SVM/SKM pathway note
-            for (Course course : allCourses) {
-                if (!"DEGREE".equalsIgnoreCase(course.getDepartment()) && !course.isGappOnly() && !course.isGufpOnly()) {
-                    eligible.add(course);
+            // Require at least 3 credits/competent modules & BM pass for SVM/SKM
+            if (profile.getTotalCredits() >= 3 && profile.isHasBMPass()) {
+                for (Course course : allCourses) {
+                    if (!"DEGREE".equalsIgnoreCase(course.getDepartment())
+                            && !course.isAdvancedEntry()
+                            && !course.isGappOnly()
+                            && !course.isGufpOnly()) {
+                        eligible.add(course);
+                    }
                 }
             }
         } else if (qUpper.contains("STPM") || qUpper.contains("FOUNDATION")) {
-            // STPM or FOUNDATION: show all diploma programmes + BELT degree
+            // STPM or FOUNDATION: require at least 2 passes/credits + Maths/Science
             for (Course course : allCourses) {
-                if (!course.isGappOnly() && !course.isGufpOnly()) {
-                    eligible.add(course);
+                if (course.isGappOnly() || course.isGufpOnly()) {
+                    continue;
                 }
-            }
-        } else {
-            // Default fallback
-            for (Course course : allCourses) {
-                if (profile.getTotalCredits() >= course.getMinSPMCredits()) {
+                if ("DEGREE".equalsIgnoreCase(course.getDepartment()) || course.isAdvancedEntry()) {
+                    if (profile.getTotalCredits() >= 2 && profile.isHasMathsCredit() && profile.isHasScienceCredit()) {
+                        eligible.add(course);
+                    }
+                } else if (profile.getTotalCredits() >= 1) {
                     eligible.add(course);
                 }
             }

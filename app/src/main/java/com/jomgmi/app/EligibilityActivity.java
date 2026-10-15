@@ -158,11 +158,11 @@ public class EligibilityActivity extends AppCompatActivity {
 
         btnEligReset.setOnClickListener(v -> {
             spEligQualification.setSelection(0);
-            etEligCredits.setText("5");
-            cbEligMaths.setChecked(true);
-            cbEligScience.setChecked(true);
-            cbEligBm.setChecked(true);
-            cbEligEnglish.setChecked(true);
+            etEligCredits.setText("0");
+            cbEligMaths.setChecked(false);
+            cbEligScience.setChecked(false);
+            cbEligBm.setChecked(false);
+            cbEligEnglish.setChecked(false);
             cbEligAddMaths.setChecked(false);
             cbEligPhysics.setChecked(false);
             cbEligChemistry.setChecked(false);

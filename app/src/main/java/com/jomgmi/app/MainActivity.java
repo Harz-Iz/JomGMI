@@ -284,13 +284,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        int credits = prefs.getInt(KEY_CREDITS, 5);
+        // Default to 3 on Main Page if no credit count was saved
+        int credits = prefs.getInt(KEY_CREDITS, 3);
         etCredits.setText(String.valueOf(credits));
 
-        cbMaths.setChecked(prefs.getBoolean(KEY_MATHS, true));
-        cbScience.setChecked(prefs.getBoolean(KEY_SCIENCE, true));
-        cbBm.setChecked(prefs.getBoolean(KEY_BM, true));
-        cbEnglish.setChecked(prefs.getBoolean(KEY_ENGLISH, true));
+        cbMaths.setChecked(prefs.getBoolean(KEY_MATHS, false));
+        cbScience.setChecked(prefs.getBoolean(KEY_SCIENCE, false));
+        cbBm.setChecked(prefs.getBoolean(KEY_BM, false));
+        cbEnglish.setChecked(prefs.getBoolean(KEY_ENGLISH, false));
 
         updateStemVisibility();
 
@@ -303,13 +304,13 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit().clear().apply();
 
-        // Reset form
+        // Reset Main Page form to 3 credits and all subjects unchecked
         spQualification.setSelection(0);
-        etCredits.setText("5");
-        cbMaths.setChecked(true);
-        cbScience.setChecked(true);
-        cbBm.setChecked(true);
-        cbEnglish.setChecked(true);
+        etCredits.setText("3");
+        cbMaths.setChecked(false);
+        cbScience.setChecked(false);
+        cbBm.setChecked(false);
+        cbEnglish.setChecked(false);
         cbAddMaths.setChecked(false);
         cbPhysics.setChecked(false);
         cbChemistry.setChecked(false);

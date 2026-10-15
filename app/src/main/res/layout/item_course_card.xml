@@ -147,6 +147,8 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:text="@string/view_details"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
                     android:textSize="12sp"
                     app:backgroundTint="@color/primary_container"
                     app:cornerRadius="18dp"

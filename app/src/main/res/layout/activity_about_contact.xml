@@ -66,7 +66,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Institut Malaysia-Jerman (GMI)"
+                        android:text="GMI"
                         android:textColor="@color/accent"
                         android:textSize="13sp" />
 
@@ -213,7 +213,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
                                     android:lineSpacingExtra="2dp"
-                                    android:text="German-Malaysian Institute, Persiaran Damar Seksyen U1 40150 Shah Alam, Selangor"
+                                    android:text="German-Malaysian Institute\nJalan Ilmiah, Taman Universiti,\n43000, Kajang, Selangor, Malaysia"
                                     android:textColor="@color/text_primary"
                                     android:textSize="13sp" />
 
