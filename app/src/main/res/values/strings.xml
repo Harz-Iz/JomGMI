@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">JomGMI</string>
+    <string name="app_tagline">GMI Course &amp; Eligibility Finder</string>
+
+    <!-- Navigation items -->
+    <string name="nav_home">Home</string>
+    <string name="nav_explore">Explore</string>
+    <string name="nav_eligibility">Eligibility</string>
+    <string name="nav_about">About</string>
+
+    <!-- General Labels -->
+    <string name="title_programmes_matched">Programmes You May Qualify For</string>
+    <string name="title_explore_courses">Explore Programmes</string>
+    <string name="title_eligibility_checker">Eligibility Checker</string>
+    <string name="title_about_gmi">About &amp; Contact GMI</string>
+    <string name="qualification_label">Select Qualification</string>
+    <string name="credits_label">Number of Credits / Passes</string>
+    <string name="find_courses_btn">Find My Courses</string>
+    <string name="clear_grades_btn">Clear Grades</string>
+    <string name="view_details">View Details</string>
+    <string name="apply_now">Apply Now</string>
+    <string name="get_directions">Get Directions</string>
+
+    <!-- Checkbox labels -->
+    <string name="cb_maths">Maths Credit</string>
+    <string name="cb_science">Science / Technical Credit</string>
+    <string name="cb_bm">BM Pass</string>
+    <string name="cb_english">English Pass</string>
+    <string name="cb_add_maths">Additional Maths (A/B/C)</string>
+    <string name="cb_physics">Physics (A/B/C)</string>
+    <string name="cb_chemistry">Chemistry (A/B/C)</string>
+
+    <!-- Empty state -->
+    <string name="empty_matched_title">No Programmes Matched</string>
+    <string name="empty_matched_desc">No programmes matched your current criteria. Try adjusting your grades or explore all available courses.</string>
+    <string name="explore_all_btn">Explore All Courses</string>
+
+    <!-- Filter chips -->
+    <string name="filter_all">All</string>
+    <string name="filter_electrical">Electrical</string>
+    <string name="filter_mechanical">Mechanical</string>
+    <string name="filter_it">IT &amp; Multimedia</string>
+    <string name="filter_pre_u">Pre-University</string>
+    <string name="filter_degree">Degree</string>
+    <string name="filter_gdvt">GDVT</string>
+</resources>
