@@ -5,13 +5,16 @@
     <!-- Navigation items -->
     <string name="nav_home">Home</string>
     <string name="nav_explore">Explore</string>
-    <string name="nav_eligibility">Eligibility</string>
+    <string name="nav_eligibility">Gallery</string>
     <string name="nav_about">About</string>
 
     <!-- General Labels -->
     <string name="title_programmes_matched">Programmes You May Qualify For</string>
     <string name="title_explore_courses">Explore Programmes</string>
     <string name="title_eligibility_checker">Eligibility Checker</string>
+    <string name="title_campus_gallery">Campus Gallery</string>
+    <string name="gallery_section_title">GMI Campus &amp; Facilities</string>
+    <string name="gallery_photos_badge">7 Photos</string>
     <string name="title_about_gmi">About &amp; Contact GMI</string>
     <string name="qualification_label">Select Qualification</string>
     <string name="credits_label">Number of Credits / Passes</string>
