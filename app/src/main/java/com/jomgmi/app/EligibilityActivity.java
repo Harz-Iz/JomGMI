@@ -1,29 +1,23 @@
 package com.jomgmi.app;
 
+import android.app.Dialog;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.checkbox.MaterialCheckBox;
-import com.google.android.material.textfield.TextInputEditText;
-import com.jomgmi.app.adapter.CourseAdapter;
-import com.jomgmi.app.data.CourseRepository;
-import com.jomgmi.app.model.Course;
-import com.jomgmi.app.model.StudentProfile;
-import com.jomgmi.app.util.EligibilityEngine;
+import com.google.android.material.card.MaterialCardView;
+import com.jomgmi.app.adapter.GalleryFeedAdapter;
+import com.jomgmi.app.adapter.HeroSliderAdapter;
+import com.jomgmi.app.model.GalleryItem;
 import com.jomgmi.app.util.NavigationHelper;
 
 import java.util.ArrayList;
@@ -32,28 +26,18 @@ import java.util.List;
 public class EligibilityActivity extends AppCompatActivity {
 
     private MaterialToolbar toolbarEligibility;
-    private Spinner spEligQualification;
-    private TextInputEditText etEligCredits;
-    private MaterialButton btnEligMinus;
-    private MaterialButton btnEligPlus;
-    private MaterialCheckBox cbEligMaths;
-    private MaterialCheckBox cbEligScience;
-    private MaterialCheckBox cbEligBm;
-    private MaterialCheckBox cbEligEnglish;
-    private LinearLayout layoutEligStem;
-    private MaterialCheckBox cbEligAddMaths;
-    private MaterialCheckBox cbEligPhysics;
-    private MaterialCheckBox cbEligChemistry;
-    private MaterialButton btnEligReset;
-    private MaterialButton btnEligCheck;
-
-    private TextView tvEligCount;
-    private RecyclerView rvEligResults;
-    private LinearLayout layoutEligEmpty;
+    private ViewPager2 viewPagerHero;
+    private MaterialCardView cardHeroPreview;
+    private TextView tvHeroTag;
+    private TextView tvHeroBadge;
+    private TextView tvHeroTitle;
+    private TextView tvHeroSubtitle;
+    private RecyclerView rvGalleryFeed;
     private BottomNavigationView bottomNavigation;
 
-    private CourseAdapter courseAdapter;
-    private final String[] qualifications = {"SPM", "O-Level", "SVM", "SKM", "STPM", "Foundation"};
+    private List<GalleryItem> galleryItems;
+    private HeroSliderAdapter heroAdapter;
+    private GalleryFeedAdapter feedAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,34 +46,21 @@ public class EligibilityActivity extends AppCompatActivity {
 
         initViews();
         setupToolbar();
-        setupSpinner();
-        setupRecyclerView();
-        setupListeners();
+        prepareGalleryData();
+        setupHeroSlider();
+        setupGalleryFeed();
         setupNavigation();
-
-        evaluateEligibility();
     }
 
     private void initViews() {
         toolbarEligibility = findViewById(R.id.toolbarEligibility);
-        spEligQualification = findViewById(R.id.spEligQualification);
-        etEligCredits = findViewById(R.id.etEligCredits);
-        btnEligMinus = findViewById(R.id.btnEligMinus);
-        btnEligPlus = findViewById(R.id.btnEligPlus);
-        cbEligMaths = findViewById(R.id.cbEligMaths);
-        cbEligScience = findViewById(R.id.cbEligScience);
-        cbEligBm = findViewById(R.id.cbEligBm);
-        cbEligEnglish = findViewById(R.id.cbEligEnglish);
-        layoutEligStem = findViewById(R.id.layoutEligStem);
-        cbEligAddMaths = findViewById(R.id.cbEligAddMaths);
-        cbEligPhysics = findViewById(R.id.cbEligPhysics);
-        cbEligChemistry = findViewById(R.id.cbEligChemistry);
-        btnEligReset = findViewById(R.id.btnEligReset);
-        btnEligCheck = findViewById(R.id.btnEligCheck);
-
-        tvEligCount = findViewById(R.id.tvEligCount);
-        rvEligResults = findViewById(R.id.rvEligResults);
-        layoutEligEmpty = findViewById(R.id.layoutEligEmpty);
+        viewPagerHero = findViewById(R.id.viewPagerHero);
+        cardHeroPreview = findViewById(R.id.cardHeroPreview);
+        tvHeroTag = findViewById(R.id.tvHeroTag);
+        tvHeroBadge = findViewById(R.id.tvHeroBadge);
+        tvHeroTitle = findViewById(R.id.tvHeroTitle);
+        tvHeroSubtitle = findViewById(R.id.tvHeroSubtitle);
+        rvGalleryFeed = findViewById(R.id.rvGalleryFeed);
         bottomNavigation = findViewById(R.id.bottomNavigation);
     }
 
@@ -97,137 +68,175 @@ public class EligibilityActivity extends AppCompatActivity {
         toolbarEligibility.setNavigationOnClickListener(v -> finish());
     }
 
-    private void setupSpinner() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_dropdown_item,
-                qualifications
-        );
-        spEligQualification.setAdapter(adapter);
+    private void prepareGalleryData() {
+        galleryItems = new ArrayList<>();
+
+        galleryItems.add(new GalleryItem(
+                1,
+                "jomgmi_1",
+                "GMI Main Campus & Administration",
+                "Sprawling green campus in Bangi, Selangor built to German industrial education standards.",
+                "Campus Overview"
+        ));
+
+        galleryItems.add(new GalleryItem(
+                2,
+                "jomgmi_2",
+                "Advanced Industrial Automation & Robotics Lab",
+                "Equipped with state-of-the-art robotic workcells, PLC controllers, and SCADA systems.",
+                "Industrial Labs"
+        ));
+
+        galleryItems.add(new GalleryItem(
+                3,
+                "jomgmi_3",
+                "Precision CNC & Engineering Workshop",
+                "High-precision CNC turning, 5-axis milling machinery, and additive manufacturing workshops.",
+                "Engineering Workshops"
+        ));
+
+        galleryItems.add(new GalleryItem(
+                4,
+                "jomgmi_4",
+                "Cyber Security & Software Development Labs",
+                "High-performance networked computing infrastructure dedicated to AI, cloud, and security.",
+                "IT & Software"
+        ));
+
+        galleryItems.add(new GalleryItem(
+                5,
+                "jomgmi_5",
+                "Mechatronics & Electro-Pneumatics Training Center",
+                "Comprehensive hands-on mechatronics prototyping stations and industrial automation sensors.",
+                "Mechatronics"
+        ));
+
+        galleryItems.add(new GalleryItem(
+                6,
+                "jomgmi_6",
+                "Student Life & Sports Complex",
+                "Full-sized sports arena, gymnasiums, Olympic-sized swimming amenities, and student activity spaces.",
+                "Student Life"
+        ));
+
+        galleryItems.add(new GalleryItem(
+                7,
+                "jomgmi_7",
+                "GMI Resource Centre & Collaborative Learning Hub",
+                "Rich repository of engineering literature, research terminals, and modern group discussion pods.",
+                "Learning Spaces"
+        ));
+
+        // Resolve drawable resource IDs dynamically with graceful fallback
+        for (GalleryItem item : galleryItems) {
+            int resId = getResources().getIdentifier(item.getDrawableName(), "drawable", getPackageName());
+            if (resId == 0) {
+                resId = R.drawable.ic_school; // fallback placeholder
+            }
+            item.setResId(resId);
+        }
     }
 
-    private void setupRecyclerView() {
-        rvEligResults.setLayoutManager(new LinearLayoutManager(this));
-        courseAdapter = new CourseAdapter(this, new ArrayList<>());
-        rvEligResults.setAdapter(courseAdapter);
+    private void setupHeroSlider() {
+        heroAdapter = new HeroSliderAdapter(this, galleryItems, (position, item) -> showLightboxDialog(position));
+        viewPagerHero.setAdapter(heroAdapter);
+
+        viewPagerHero.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                updateHeroCardInfo(position);
+            }
+        });
+
+        if (!galleryItems.isEmpty()) {
+            updateHeroCardInfo(0);
+        }
+
+        cardHeroPreview.setOnClickListener(v -> showLightboxDialog(viewPagerHero.getCurrentItem()));
+    }
+
+    private void updateHeroCardInfo(int position) {
+        if (position >= 0 && position < galleryItems.size()) {
+            GalleryItem item = galleryItems.get(position);
+            tvHeroBadge.setText((position + 1) + " / " + galleryItems.size());
+            tvHeroTag.setText(item.getCategory());
+            tvHeroTitle.setText(item.getTitle());
+            tvHeroSubtitle.setText(item.getDescription());
+        }
+    }
+
+    private void setupGalleryFeed() {
+        rvGalleryFeed.setLayoutManager(new LinearLayoutManager(this));
+        feedAdapter = new GalleryFeedAdapter(this, galleryItems, (position, item) -> {
+            viewPagerHero.setCurrentItem(position, true);
+            showLightboxDialog(position);
+        });
+        rvGalleryFeed.setAdapter(feedAdapter);
     }
 
     private void setupNavigation() {
         NavigationHelper.setupBottomNavigation(this, bottomNavigation, R.id.nav_eligibility);
     }
 
-    private void setupListeners() {
-        spEligQualification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                updateStemVisibility();
-            }
+    private void showLightboxDialog(int initialPosition) {
+        if (galleryItems == null || galleryItems.isEmpty()) return;
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
+        Dialog dialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        dialog.setContentView(R.layout.dialog_lightbox);
 
-        btnEligMinus.setOnClickListener(v -> {
-            int current = parseCredits();
-            if (current > 0) {
-                etEligCredits.setText(String.valueOf(current - 1));
-            }
-        });
-
-        btnEligPlus.setOnClickListener(v -> {
-            int current = parseCredits();
-            if (current < 12) {
-                etEligCredits.setText(String.valueOf(current + 1));
-            }
-        });
-
-        etEligCredits.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                updateStemVisibility();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
-
-        btnEligCheck.setOnClickListener(v -> evaluateEligibility());
-
-        btnEligReset.setOnClickListener(v -> {
-            spEligQualification.setSelection(0);
-            etEligCredits.setText("0");
-            cbEligMaths.setChecked(false);
-            cbEligScience.setChecked(false);
-            cbEligBm.setChecked(false);
-            cbEligEnglish.setChecked(false);
-            cbEligAddMaths.setChecked(false);
-            cbEligPhysics.setChecked(false);
-            cbEligChemistry.setChecked(false);
-            updateStemVisibility();
-            evaluateEligibility();
-        });
-    }
-
-    private int parseCredits() {
-        String text = etEligCredits.getText() != null ? etEligCredits.getText().toString().trim() : "";
-        try {
-            return Integer.parseInt(text);
-        } catch (NumberFormatException e) {
-            return 0;
-        }
-    }
-
-    private void updateStemVisibility() {
-        String selected = (String) spEligQualification.getSelectedItem();
-        int credits = parseCredits();
-
-        if ("SPM".equalsIgnoreCase(selected) && credits >= 5) {
-            layoutEligStem.setVisibility(View.VISIBLE);
-        } else {
-            layoutEligStem.setVisibility(View.GONE);
-        }
-    }
-
-    private void evaluateEligibility() {
-        int credits = parseCredits();
-        String qualification = (String) spEligQualification.getSelectedItem();
-        if (qualification == null) qualification = "SPM";
-
-        StudentProfile profile = new StudentProfile();
-        profile.setQualificationType(qualification);
-        profile.setTotalCredits(credits);
-        profile.setHasMathsCredit(cbEligMaths.isChecked());
-        profile.setHasScienceCredit(cbEligScience.isChecked());
-        profile.setHasBMPass(cbEligBm.isChecked());
-        profile.setHasEnglishPass(cbEligEnglish.isChecked());
-
-        if (layoutEligStem.getVisibility() == View.VISIBLE) {
-            profile.setHasAddMaths(cbEligAddMaths.isChecked());
-            profile.setHasPhysics(cbEligPhysics.isChecked());
-            profile.setHasChemistry(cbEligChemistry.isChecked());
-        } else {
-            profile.setHasAddMaths(false);
-            profile.setHasPhysics(false);
-            profile.setHasChemistry(false);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         }
 
-        List<Course> allCourses = CourseRepository.getCourses();
-        List<Course> eligibleCourses = EligibilityEngine.getEligibleCourses(profile, allCourses);
+        ImageView ivLightboxMain = dialog.findViewById(R.id.ivLightboxMain);
+        ImageButton btnLightboxClose = dialog.findViewById(R.id.btnLightboxClose);
+        ImageButton btnLightboxPrev = dialog.findViewById(R.id.btnLightboxPrev);
+        ImageButton btnLightboxNext = dialog.findViewById(R.id.btnLightboxNext);
+        TextView tvLightboxCount = dialog.findViewById(R.id.tvLightboxCount);
+        TextView tvLightboxTag = dialog.findViewById(R.id.tvLightboxTag);
+        TextView tvLightboxTitle = dialog.findViewById(R.id.tvLightboxTitle);
+        TextView tvLightboxDesc = dialog.findViewById(R.id.tvLightboxDesc);
 
-        courseAdapter.updateList(eligibleCourses);
+        final int[] currentIndex = {Math.max(0, Math.min(initialPosition, galleryItems.size() - 1))};
 
-        int count = eligibleCourses.size();
-        tvEligCount.setText(count + (count == 1 ? " Programme" : " Programmes"));
+        Runnable updateDialogContent = () -> {
+            GalleryItem currentItem = galleryItems.get(currentIndex[0]);
+            if (currentItem.getResId() != 0) {
+                ivLightboxMain.setImageResource(currentItem.getResId());
+            } else {
+                ivLightboxMain.setImageResource(R.drawable.ic_school);
+            }
+            tvLightboxCount.setText("Photo " + (currentIndex[0] + 1) + " of " + galleryItems.size());
+            tvLightboxTag.setText(currentItem.getCategory());
+            tvLightboxTitle.setText(currentItem.getTitle());
+            tvLightboxDesc.setText(currentItem.getDescription());
+        };
 
-        if (count == 0) {
-            layoutEligEmpty.setVisibility(View.VISIBLE);
-            rvEligResults.setVisibility(View.GONE);
-        } else {
-            layoutEligEmpty.setVisibility(View.GONE);
-            rvEligResults.setVisibility(View.VISIBLE);
-        }
+        updateDialogContent.run();
+
+        btnLightboxClose.setOnClickListener(v -> dialog.dismiss());
+
+        btnLightboxPrev.setOnClickListener(v -> {
+            if (currentIndex[0] > 0) {
+                currentIndex[0]--;
+            } else {
+                currentIndex[0] = galleryItems.size() - 1;
+            }
+            updateDialogContent.run();
+            viewPagerHero.setCurrentItem(currentIndex[0], true);
+        });
+
+        btnLightboxNext.setOnClickListener(v -> {
+            if (currentIndex[0] < galleryItems.size() - 1) {
+                currentIndex[0]++;
+            } else {
+                currentIndex[0] = 0;
+            }
+            updateDialogContent.run();
+            viewPagerHero.setCurrentItem(currentIndex[0], true);
+        });
+
+        dialog.show();
     }
 }

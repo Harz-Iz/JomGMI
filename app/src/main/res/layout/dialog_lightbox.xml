@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0050B17">
+
+    <!-- Top Action Bar -->
+    <LinearLayout
+        android:id="@+id/layoutLightboxTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="12dp">
+
+        <ImageButton
+            android:id="@+id/btnLightboxClose"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_pill_badge"
+            android:contentDescription="Close Fullscreen View"
+            android:padding="10dp"
+            android:src="@drawable/ic_clear"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/tvLightboxCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvLightboxTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_pill_badge"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:textColor="@color/accent"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Main Image Display Container -->
+    <FrameLayout
+        android:id="@+id/layoutImageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layoutLightboxBottom"
+        android:layout_below="@+id/layoutLightboxTopBar">
+
+        <ImageView
+            android:id="@+id/ivLightboxMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:contentDescription="Campus Photo Fullscreen"
+            android:scaleType="fitCenter" />
+
+        <!-- Previous Button -->
+        <ImageButton
+            android:id="@+id/btnLightboxPrev"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/bg_pill_badge"
+            android:contentDescription="Previous Photo"
+            android:padding="10dp"
+            android:src="@drawable/ic_chevron_left"
+            app:tint="@color/white" />
+
+        <!-- Next Button -->
+        <ImageButton
+            android:id="@+id/btnLightboxNext"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_pill_badge"
+            android:contentDescription="Next Photo"
+            android:padding="10dp"
+            android:src="@drawable/ic_chevron_right"
+            app:tint="@color/white" />
+
+    </FrameLayout>
+
+    <!-- Bottom Caption Bar -->
+    <LinearLayout
+        android:id="@+id/layoutLightboxBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#D9050B17"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="24dp">
+
+        <TextView
+            android:id="@+id/tvLightboxTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvLightboxDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="2dp"
+            android:textColor="#D0D5DD"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

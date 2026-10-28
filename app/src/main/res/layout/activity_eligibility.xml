@@ -12,7 +12,7 @@
         android:layout_marginBottom="60dp"
         android:orientation="vertical">
 
-        <!-- Top AppBar -->
+        <!-- Top AppBar: GMI Corporate Navy Blue with Campus Gallery Title -->
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbarEligibility"
             android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:background="@color/primary"
             app:navigationIcon="@drawable/ic_arrow_back"
             app:navigationIconTint="@color/white"
-            app:title="@string/title_eligibility_checker"
+            app:title="@string/title_campus_gallery"
             app:titleTextColor="@color/white" />
 
         <!-- Scrollable Content -->
@@ -35,300 +35,138 @@
                 android:orientation="vertical"
                 android:paddingBottom="24dp">
 
-                <!-- Grade Input Card -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardEligibilityInput"
+                <!-- Introduction note -->
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="14dp"
                     android:layout_marginEnd="16dp"
+                    android:lineSpacingExtra="2dp"
+                    android:text="Explore GMI's world-class engineering workshops, advanced German technology labs, and campus facilities."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp" />
+
+                <!-- Hero Image Slider / Featured Interactive Preview Card (3:2 Aspect Ratio ~ 220dp) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardHeroPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp"
+                    app:cardElevation="3dp"
                     app:strokeColor="@color/card_stroke"
                     app:strokeWidth="1dp">
 
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
+                        android:layout_height="match_parent">
 
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/viewPagerHero"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <!-- Bottom Gradient Overlay for High Contrast Text -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_gravity="bottom"
+                            android:background="@drawable/bg_gradient_scrim" />
+
+                        <!-- Top-Left Category Tag -->
                         <TextView
+                            android:id="@+id/tvHeroTag"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Manual Grade Evaluation"
-                            android:textColor="@color/text_primary"
-                            android:textSize="16sp"
+                            android:layout_gravity="top|start"
+                            android:layout_margin="12dp"
+                            android:background="@drawable/bg_pill_badge"
+                            android:paddingStart="10dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="4dp"
+                            android:text="Featured Facility"
+                            android:textColor="@color/accent"
+                            android:textSize="11sp"
                             android:textStyle="bold" />
 
+                        <!-- Top-Right Pill Badge Indicator (e.g., 1 / 7) -->
                         <TextView
+                            android:id="@+id/tvHeroBadge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Test different qualification scenarios against GMI admission requirements."
-                            android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
-
-                        <!-- Qualification Spinner -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp"
-                            android:text="@string/qualification_label"
-                            android:textColor="@color/text_secondary"
+                            android:layout_gravity="top|end"
+                            android:layout_margin="12dp"
+                            android:background="@drawable/bg_pill_badge"
+                            android:paddingStart="10dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="4dp"
+                            android:text="1 / 7"
+                            android:textColor="@color/white"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
-                        <Spinner
-                            android:id="@+id/spEligQualification"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="6dp"
-                            android:background="@drawable/bg_search_input"
-                            android:paddingStart="12dp"
-                            android:paddingEnd="12dp" />
-
-                        <!-- Number of Credits -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp"
-                            android:text="@string/credits_label"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
+                        <!-- Bottom Descriptive Caption -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:boxCornerRadiusBottomEnd="10dp"
-                                app:boxCornerRadiusBottomStart="10dp"
-                                app:boxCornerRadiusTopEnd="10dp"
-                                app:boxCornerRadiusTopStart="10dp"
-                                app:boxStrokeColor="@color/primary">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/etEligCredits"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="Credits / Passes"
-                                    android:inputType="number"
-                                    android:maxLength="2"
-                                    android:text="0"
-                                    android:textSize="14sp" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btnEligMinus"
-                                style="@style/Widget.Material3.Button.TonalButton"
-                                android:layout_width="44dp"
-                                android:layout_height="44dp"
-                                android:layout_marginStart="8dp"
-                                android:insetTop="0dp"
-                                android:insetBottom="0dp"
-                                android:padding="0dp"
-                                android:text="-"
-                                android:textColor="@color/primary"
-                                android:textStyle="bold"
-                                android:textSize="18sp"
-                                app:backgroundTint="@color/primary_container"
-                                app:cornerRadius="10dp" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btnEligPlus"
-                                style="@style/Widget.Material3.Button.TonalButton"
-                                android:layout_width="44dp"
-                                android:layout_height="44dp"
-                                android:layout_marginStart="6dp"
-                                android:insetTop="0dp"
-                                android:insetBottom="0dp"
-                                android:padding="0dp"
-                                android:text="+"
-                                android:textColor="@color/primary"
-                                android:textStyle="bold"
-                                android:textSize="18sp"
-                                app:backgroundTint="@color/primary_container"
-                                app:cornerRadius="10dp" />
-
-                        </LinearLayout>
-
-                        <!-- Core Subject Checkboxes -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:text="Core Subject Grades"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:orientation="vertical">
-
-                            <com.google.android.material.checkbox.MaterialCheckBox
-                                android:id="@+id/cbEligMaths"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:checked="false"
-                                android:text="@string/cb_maths"
-                                android:textColor="@color/text_primary"
-                                android:textSize="13sp" />
-
-                            <com.google.android.material.checkbox.MaterialCheckBox
-                                android:id="@+id/cbEligScience"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:checked="false"
-                                android:text="@string/cb_science"
-                                android:textColor="@color/text_primary"
-                                android:textSize="13sp" />
-
-                            <com.google.android.material.checkbox.MaterialCheckBox
-                                android:id="@+id/cbEligBm"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:checked="false"
-                                android:text="@string/cb_bm"
-                                android:textColor="@color/text_primary"
-                                android:textSize="13sp" />
-
-                            <com.google.android.material.checkbox.MaterialCheckBox
-                                android:id="@+id/cbEligEnglish"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:checked="false"
-                                android:text="@string/cb_english"
-                                android:textColor="@color/text_primary"
-                                android:textSize="13sp" />
-
-                        </LinearLayout>
-
-                        <!-- Pre-University STEM Subjects -->
-                        <LinearLayout
-                            android:id="@+id/layoutEligStem"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/bg_badge_rounded"
-                            android:backgroundTint="#F3E8FF"
+                            android:layout_gravity="bottom"
                             android:orientation="vertical"
-                            android:padding="12dp"
-                            android:visibility="visible">
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="12dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:id="@+id/tvHeroTitle"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="STEM Subjects (GAPP / GUFP)"
-                                android:textColor="#6D28D9"
-                                android:textSize="11sp"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
                                 android:textStyle="bold" />
 
-                            <com.google.android.material.checkbox.MaterialCheckBox
-                                android:id="@+id/cbEligAddMaths"
+                            <TextView
+                                android:id="@+id/tvHeroSubtitle"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/cb_add_maths"
-                                android:textColor="@color/text_primary"
-                                android:textSize="13sp" />
-
-                            <com.google.android.material.checkbox.MaterialCheckBox
-                                android:id="@+id/cbEligPhysics"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/cb_physics"
-                                android:textColor="@color/text_primary"
-                                android:textSize="13sp" />
-
-                            <com.google.android.material.checkbox.MaterialCheckBox
-                                android:id="@+id/cbEligChemistry"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/cb_chemistry"
-                                android:textColor="@color/text_primary"
-                                android:textSize="13sp" />
+                                android:layout_marginTop="2dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:textColor="#E0E6F0"
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
-                        <!-- Action Buttons -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:orientation="horizontal">
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btnEligReset"
-                                style="@style/Widget.Material3.Button.OutlinedButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="48dp"
-                                android:layout_marginEnd="8dp"
-                                android:text="Reset"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="13sp"
-                                app:cornerRadius="12dp"
-                                app:icon="@drawable/ic_clear"
-                                app:iconSize="16dp"
-                                app:strokeColor="@color/card_stroke" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btnEligCheck"
-                                android:layout_width="0dp"
-                                android:layout_height="48dp"
-                                android:layout_weight="1"
-                                android:text="Check Eligibility"
-                                android:textColor="@color/white"
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                app:backgroundTint="@color/primary"
-                                app:cornerRadius="12dp"
-                                app:icon="@drawable/ic_eligibility"
-                                app:iconGravity="textStart"
-                                app:iconPadding="6dp"
-                                app:iconSize="16dp"
-                                app:iconTint="@color/white" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
+                    </FrameLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Results Header -->
+                <!-- Section Header: GMI Campus & Facilities with 7 Photos Gold Badge -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="8dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Eligible Programmes"
+                        android:text="@string/gallery_section_title"
                         android:textColor="@color/text_primary"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvEligCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_badge_rounded"
@@ -337,62 +175,21 @@
                         android:paddingTop="3dp"
                         android:paddingEnd="10dp"
                         android:paddingBottom="3dp"
-                        android:text="0 Programmes"
+                        android:text="@string/gallery_photos_badge"
                         android:textColor="@color/on_accent_container"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
 
-                <!-- Results RecyclerView -->
+                <!-- Gallery Feed RecyclerView displaying all 7 cards -->
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvEligResults"
+                    android:id="@+id/rvGalleryFeed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:nestedScrollingEnabled="false"
-                    tools:listitem="@layout/item_course_card" />
-
-                <!-- Empty State -->
-                <LinearLayout
-                    android:id="@+id/layoutEligEmpty"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/bg_search_input"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="28dp"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:alpha="0.5"
-                        android:contentDescription="No matches"
-                        android:src="@drawable/ic_school"
-                        app:tint="@color/text_hint" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="No programmes matched"
-                        android:textColor="@color/text_primary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="Adjust the qualification or grade selections above to re-evaluate."
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
+                    tools:itemCount="7"
+                    tools:listitem="@layout/item_gallery_card" />
 
             </LinearLayout>
 
